@@ -1,14 +1,7 @@
 # snailsort
 
-A Clojure library designed to ... well, that part is up to you.
+A project generated using `lein new snailsort` to host a solution to the snail kata at https://www.codewars.com/kata/snail
 
 ## Usage
 
-FIXME
-
-## License
-
-Copyright © 2020 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Run tests with `lein test-refresh`
