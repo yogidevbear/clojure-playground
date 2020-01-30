@@ -26,3 +26,10 @@
     (is (= true (snail/is-valid? grid [1 1])))
     (is (= false (snail/is-valid? grid [0 3])))
     (is (= false (snail/is-valid? grid [0 3])))))
+
+(deftest next-direction
+  (testing "Test next-direction for clockwise rotation"
+    (is (= :down (snail/next-direction :right)))
+    (is (= :left (snail/next-direction :down)))
+    (is (= :up (snail/next-direction :left)))
+    (is (= :right (snail/next-direction :up)))))
