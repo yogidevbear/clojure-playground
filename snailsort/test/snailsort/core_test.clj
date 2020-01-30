@@ -19,3 +19,10 @@
     (is (= [2 1] (snail/next-coordinate :left [2 2])))
     (is (= [2 2] (snail/next-coordinate :down [1 2])))
     (is (= [1 0] (snail/next-coordinate :up [2 0])))))
+
+(deftest is-valid?
+  (testing "Test if next coordinate is valid"
+    (is (= true (snail/is-valid? grid [0 2])))
+    (is (= true (snail/is-valid? grid [1 1])))
+    (is (= false (snail/is-valid? grid [0 3])))
+    (is (= false (snail/is-valid? grid [0 3])))))
