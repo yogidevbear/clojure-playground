@@ -13,6 +13,9 @@
    [8 9 4]
    [7 6 5]])
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest next-coordinate
+  (testing "Test retrieving next coordinate"
+    (is (= [0 1] (snail/next-coordinate :right [0 0])))
+    (is (= [2 1] (snail/next-coordinate :left [2 2])))
+    (is (= [2 2] (snail/next-coordinate :down [1 2])))
+    (is (= [1 0] (snail/next-coordinate :up [2 0])))))
