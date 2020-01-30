@@ -33,3 +33,10 @@
     (is (= :left (snail/next-direction :down)))
     (is (= :up (snail/next-direction :left)))
     (is (= :right (snail/next-direction :up)))))
+
+(deftest first-visit?
+  (testing "Test if coordinate is being visited for the first time"
+    (is (= true (snail/first-visit? #{} [0 0])))
+    (is (= false (snail/first-visit? #{[0 0]} [0 0])))
+    (is (= true (snail/first-visit? #{[0 0] [0 1]} [0 2])))
+    (is (= false (snail/first-visit? #{[0 0] [0 1] [0 2]} [0 2])))))

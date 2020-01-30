@@ -26,3 +26,8 @@
   "I return the next clockwise direction"
   [direction]
   (direction clockwise-direction))
+
+(defn first-visit?
+  "I check if a grid cell is being checked for the first time"
+  [checked current]
+  (nil? (checked current)))
