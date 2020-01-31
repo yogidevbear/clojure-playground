@@ -40,3 +40,18 @@
     (is (= false (snail/first-visit? #{[0 0]} [0 0])))
     (is (= true (snail/first-visit? #{[0 0] [0 1]} [0 2])))
     (is (= false (snail/first-visit? #{[0 0] [0 1] [0 2]} [0 2])))))
+
+(deftest all-visits?
+  (testing "Test if visited set size matches grid size"
+    (is (= false (snail/all-visits? grid #{[0 0]})))
+    (is (= false (snail/all-visits? grid #{[0 0] [0 1]})))
+    (is (= true (snail/all-visits? grid #{[0 0] [0 1] [0 2] [1 0] [1 1] [1 2] [2 0] [2 1] [2 2]})))
+    (is (= true (snail/all-visits? grid #{[0 0] [0 1] [0 2] [1 2] [2 2] [2 1] [2 0] [1 0] [1 1]})))))
+
+(deftest next-valid-coordinate
+  (testing "Test next valid position in grid"
+    (is (= [0 1] (snail/next-valid-coordinate grid [0 0] :right #{[0 0]})))
+    (is (= [2 1] (snail/next-valid-coordinate grid [2 2] :down #{[0 0] [0 1] [0 2] [1 2] [2 2]})))
+    (is (= [1 0] (snail/next-valid-coordinate grid [2 0] :left #{[0 0] [0 1] [0 2] [1 2] [2 2] [2 1] [2 0]})))
+    (is (= [1 1] (snail/next-valid-coordinate grid [1 0] :up #{[0 0] [0 1] [0 2] [1 2] [2 2] [2 1] [2 0] [1 0]})))
+    (is (= nil (snail/next-valid-coordinate grid [1 1] :down #{[0 0] [0 1] [0 2] [1 2] [2 2] [2 1] [2 0] [1 0] [1 1]})))))
