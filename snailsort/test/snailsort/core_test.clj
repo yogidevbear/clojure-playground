@@ -13,6 +13,27 @@
    [8 9 4]
    [7 6 5]])
 
+(defn generate-grid
+  "Generates a random n x n grid"
+  [n]
+  (if (< n 1)
+    [[]]
+    (let [row (fn [] (take n (repeatedly #(rand-int 10))))]
+      (into [] (take n (repeatedly #(into [] (row))))))))
+
+(deftest is-valid-grid?
+  (testing "Test if grid supplied is valid n x n square"
+    (is (= false (snail/is-valid-grid? [])))
+    (is (= false (snail/is-valid-grid? [1 2 3])))
+    (is (= false (snail/is-valid-grid? [[1 2 3] [4 5 6]])))
+    (is (= false (snail/is-valid-grid? [[1 2 3] [4 5] [6 7 8 9]])))
+    (is (= true (snail/is-valid-grid? grid)))
+    (is (= true (snail/is-valid-grid? (generate-grid 0))))
+    (is (= true (snail/is-valid-grid? (generate-grid 3))))
+    (is (= true (snail/is-valid-grid? (generate-grid 9))))
+    (is (= true (snail/is-valid-grid? (generate-grid 100))))
+    (is (= true (snail/is-valid-grid? (generate-grid 1000))))))
+
 (deftest next-coordinate
   (testing "Test retrieving next coordinate"
     (is (= [0 1] (snail/next-coordinate :right [0 0])))

@@ -12,6 +12,17 @@
    :left :up
    :up :right})
 
+(defn is-valid-grid?
+  "I check if a supplied grid is a valid n x n grid"
+  [grid]
+  (let [height (count grid)]
+    (if (> height 0)
+      (every? #{true}
+              (map #(and (= (type %) (type []))
+                         (= height (count %)))
+                   grid))
+      false)))
+
 (defn next-coordinate
   "I return the next grid coordinate based on current position and direction"
   [direction current]
