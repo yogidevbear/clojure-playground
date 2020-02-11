@@ -75,3 +75,13 @@
        res
        (let [next-valid (next-valid-coordinate grid current direction res)]
          (recur grid res (:next-coordinate next-valid) (:direction next-valid)))))))
+
+(defn snailsort
+  "I sort an n x n grid in a clockwise spiral pattern"
+  [grid]
+  (if (is-valid-grid? grid)
+    (if (= grid [[]])
+      []
+      (let [spiral-path (sequence-path grid)]
+        (mapv #(get-in grid %) spiral-path)))
+    nil))
