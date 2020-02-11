@@ -13,6 +13,17 @@
    [8 9 4]
    [7 6 5]])
 
+(def grid-alt-1
+  [[1 2]
+   [4 3]])
+
+(def grid-alt-2
+  [[1 2 3 4 5]
+   [16 17 18 19 6]
+   [15 24 25 20 7]
+   [14 23 22 21 8]
+   [13 12 11 10 9]])
+
 (defn generate-grid
   "Generates a random n x n grid"
   [n]
@@ -71,8 +82,14 @@
 
 (deftest next-valid-coordinate
   (testing "Test next valid position in grid"
-    (is (= [0 1] (snail/next-valid-coordinate grid [0 0] :right #{[0 0]})))
-    (is (= [2 1] (snail/next-valid-coordinate grid [2 2] :down #{[0 0] [0 1] [0 2] [1 2] [2 2]})))
-    (is (= [1 0] (snail/next-valid-coordinate grid [2 0] :left #{[0 0] [0 1] [0 2] [1 2] [2 2] [2 1] [2 0]})))
-    (is (= [1 1] (snail/next-valid-coordinate grid [1 0] :up #{[0 0] [0 1] [0 2] [1 2] [2 2] [2 1] [2 0] [1 0]})))
+    (is (= {:direction :right :next-coordinate [0 1]} (snail/next-valid-coordinate grid [0 0] :right #{[0 0]})))
+    (is (= {:direction :left :next-coordinate [2 1]} (snail/next-valid-coordinate grid [2 2] :down #{[0 0] [0 1] [0 2] [1 2] [2 2]})))
+    (is (= {:direction :up :next-coordinate [1 0]} (snail/next-valid-coordinate grid [2 0] :left #{[0 0] [0 1] [0 2] [1 2] [2 2] [2 1] [2 0]})))
+    (is (= {:direction :right :next-coordinate [1 1]} (snail/next-valid-coordinate grid [1 0] :up #{[0 0] [0 1] [0 2] [1 2] [2 2] [2 1] [2 0] [1 0]})))
     (is (= nil (snail/next-valid-coordinate grid [1 1] :down #{[0 0] [0 1] [0 2] [1 2] [2 2] [2 1] [2 0] [1 0] [1 1]})))))
+
+(deftest sequence-path
+  (testing "Test if sequence-path returns the correct vector sequence of coordinate points of snailsort"
+    (is (= [[0 0] [0 1] [0 2] [1 2] [2 2] [2 1] [2 0] [1 0] [1 1]] (snail/sequence-path grid)))
+    (is (= [[0 0] [0 1] [1 1] [1 0]] (snail/sequence-path grid-alt-1)))
+    (is (= [[0 0] [0 1] [0 2] [0 3] [0 4] [1 4] [2 4] [3 4] [4 4] [4 3] [4 2] [4 1] [4 0] [3 0] [2 0] [1 0] [1 1] [1 2] [1 3] [2 3] [3 3] [3 2] [3 1] [2 1] [2 2]] (snail/sequence-path grid-alt-2)))))

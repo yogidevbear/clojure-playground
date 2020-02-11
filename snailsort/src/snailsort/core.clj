@@ -15,13 +15,15 @@
 (defn is-valid-grid?
   "I check if a supplied grid is a valid n x n grid"
   [grid]
-  (let [height (count grid)]
-    (if (> height 0)
-      (every? #{true}
-              (map #(and (= (type %) (type []))
-                         (= height (count %)))
-                   grid))
-      false)))
+  (if (= grid [[]])
+    true
+    (let [height (count grid)]
+      (if (> height 0)
+        (every? #{true}
+                (map #(and (= (type %) (type []))
+                           (= height (count %)))
+                     grid))
+        false))))
 
 (defn next-coordinate
   "I return the next grid coordinate based on current position and direction"
@@ -41,7 +43,7 @@
 (defn first-visit?
   "I check if a grid cell is being checked for the first time"
   [checked current]
-  (nil? (checked current)))
+  (nil? ((set checked) current)))
 
 (defn all-visits?
   "I check if all grid cells have been checked"
@@ -57,8 +59,19 @@
         rotated-pos (next-coordinate new-direction current)]
     (if (and (is-valid? grid next-pos)
              (first-visit? checked next-pos))
-      next-pos
+      {:direction direction :next-coordinate next-pos}
       (if (and (is-valid? grid rotated-pos)
                (first-visit? checked rotated-pos))
-        rotated-pos
+        {:direction new-direction :next-coordinate rotated-pos}
         nil))))
+
+(defn sequence-path
+  "I return a vector of the spiral path"
+  ([grid]
+   (sequence-path grid [] [0 0] :right))
+  ([grid res current direction]
+   (let [res (conj res current)]
+     (if (= (count res) (count (flatten grid)))
+       res
+       (let [next-valid (next-valid-coordinate grid current direction res)]
+         (recur grid res (:next-coordinate next-valid) (:direction next-valid)))))))
