@@ -85,3 +85,15 @@
       (let [spiral-path (sequence-path grid)]
         (mapv #(get-in grid %) spiral-path)))
     nil))
+
+(defn rotation-sort
+  "An alternative solution to snailsort."
+  [grid]
+  (loop [acc []
+         coll grid]
+    (if (empty? coll)
+      (flatten acc)
+      (recur (conj acc (first coll))
+             (partition (count (rest coll))
+                        (apply interleave
+                               (map reverse (rest coll))))))))

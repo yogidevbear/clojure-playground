@@ -101,3 +101,11 @@
     (is (= (mapv inc (range 4)) (snail/snailsort grid-alt-1)))
     (is (= (mapv inc (range 25)) (snail/snailsort grid-alt-2)))
     (is (= [1 2 3 6 9 8 7 4 5] (snail/snailsort [[1 2 3] [4 5 6] [7 8 9]])))))
+
+(deftest rotation-sort
+  (testing "Test rotation-sort function"
+    (is (= [] (snail/rotation-sort [[]])))
+    (is (= (mapv inc (range 9)) (snail/rotation-sort grid)))
+    (is (= (mapv inc (range 4)) (snail/rotation-sort grid-alt-1)))
+    (is (= (mapv inc (range 25)) (snail/rotation-sort grid-alt-2)))
+    (is (= [1 2 3 6 9 8 7 4 5] (snail/rotation-sort [[1 2 3] [4 5 6] [7 8 9]])))))
