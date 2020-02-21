@@ -71,10 +71,10 @@
    (sequence-path grid [] [0 0] :right))
   ([grid res current direction]
    (let [res (conj res current)]
-     (if (= (count res) (count (flatten grid)))
-       res
+     (if (< (count res) (count (flatten grid)))
        (let [next-valid (next-valid-coordinate grid current direction res)]
-         (recur grid res (:next-coordinate next-valid) (:direction next-valid)))))))
+         (recur grid res (:next-coordinate next-valid) (:direction next-valid)))
+       res))))
 
 (defn snailsort
   "I sort an n x n grid in a clockwise spiral pattern"
@@ -89,11 +89,12 @@
 (defn rotation-sort
   "An alternative solution to snailsort."
   [grid]
-  (loop [acc []
-         coll grid]
-    (if (empty? coll)
-      (flatten acc)
-      (recur (conj acc (first coll))
-             (partition (count (rest coll))
-                        (apply interleave
-                               (map reverse (rest coll))))))))
+  (when (is-valid-grid? grid)
+    (loop [acc []
+           coll grid]
+      (if (empty? coll)
+        (flatten acc)
+        (recur (conj acc (first coll))
+               (partition (count (rest coll))
+                          (apply interleave
+                                 (map reverse (rest coll)))))))))
