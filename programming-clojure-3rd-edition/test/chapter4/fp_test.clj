@@ -4,4 +4,4 @@
 
 (deftest stack-consuming-fibo
   (testing "Test chapter4.fp/stack-consuming-fibo"
-    (is (= 35 (fp/stack-consuming-fibo 9)))))
+    (is (= 34 (fp/stack-consuming-fibo 9)))))
